@@ -31,13 +31,13 @@ int total_creatures_amount = 8;
  			B_X += (int)((Math.random()*(B_max_walk_dist<<1))-B_max_walk_dist);//(x<<1) = x*2
  		} else {
  			int random_d = (int)((Math.random()*B_max_walk_dist));
- 			B_X += (B_X <= 0) ? (random_d) : (0-random_d);
+ 			B_X += (B_X <= 0) ? (random_d) : (0-random_d); //hooray for ternary operator!
  		}
  		if((B_Y < width) && (B_Y >0)){
  			B_Y += (int)((Math.random()*(B_max_walk_dist<<1))-B_max_walk_dist);//(x<<1) = x*2
  		} else {
  			int random_d = (int)((Math.random()*B_max_walk_dist));
- 			B_Y += (B_Y <= 0) ? (random_d) : (0-random_d);
+ 			B_Y += (B_Y <= 0) ? (random_d) : (0-random_d); //hooray for ternary operator!
  		}
  	}
  	void show(){
