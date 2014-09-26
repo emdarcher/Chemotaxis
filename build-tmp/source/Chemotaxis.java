@@ -14,24 +14,31 @@ import java.io.IOException;
 
 public class Chemotaxis extends PApplet {
 
- Bacteria Bob;
+ //Bacteria Bob;
+ Bacteria[] creatures;
 
-int color_for_Bob = 0xff432904; //put Bob's color here
+int total_creatures_amount = 8;
+
+int color_for_creatures = 0xff432904; //put Bob's color here
 
  //declare bacteria variables here   
  public void setup()   
  {     
  	size(200, 200);
  	//initialize bacteria variables here   
- 	Bob = new Bacteria((width>>1),(height>>1), color_for_Bob );//(x>>1) = x/2;
+ 	//Bob = new Bacteria((width>>1),(height>>1), color_for_Bob );//(x>>1) = x/2;
+ 	creatures = new Bacteria [total_creatures_amount];
+ 	init_creatures();
+
  	frameRate(10);
  }   
  public void draw()   
  {    
  	background(0);
- 	//move and show the bacteria   
- 	Bob.show();
- 	Bob.move();
+ 	//move and show the bacteria
+ 	show_then_move_creatures();   
+ 	//Bob.show();
+ 	//Bob.move();
 
  }  
  class Bacteria    
@@ -59,12 +66,35 @@ int color_for_Bob = 0xff432904; //put Bob's color here
  			int random_d = (int)((Math.random()*B_max_walk_dist));
  			B_Y += (B_Y <= 0) ? (random_d) : (0-random_d);
  		}
-
  	}
  	public void show(){
+ 		fill(B_color);
  		ellipse(B_X, B_Y, B_ellipse_w, B_ellipse_w);
  	}
  }    
+ public void init_creatures(){
+ 	//inits the creatures
+ 	for(int n=0;n<(creatures.length);n++){
+ 		int rand_Color = color(random_byte_thing(),random_byte_thing(),random_byte_thing());
+ 		creatures[n] = new Bacteria((width>>1),(height>>1), rand_Color );//(x>>1) = x/2;
+ 	}
+ }
+ public void show_then_move_creatures(){
+ 	for(int n=0;n<(creatures.length);n++){
+ 		creatures[n].show();
+ 		creatures[n].move();
+ 	}
+ }
+ public int random_byte_thing(){
+ 	//returns a random byte (0-255)
+ 	return (int)((Math.random()*256));
+ }
+ public void mousePressed()
+{//if mouse gets pressed
+	//re-initialize the creatures
+	init_creatures();
+	redraw();
+}
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Chemotaxis" };
     if (passedArgs != null) {

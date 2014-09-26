@@ -1,22 +1,18 @@
- Bacteria Bob;
-
-color color_for_Bob = #432904; //put Bob's color here
+Bacteria[] creatures;
+int total_creatures_amount = 8;
 
  //declare bacteria variables here   
- void setup()   
- {     
+ void setup() {     
  	size(200, 200);
- 	//initialize bacteria variables here   
- 	Bob = new Bacteria((width>>1),(height>>1), color_for_Bob );//(x>>1) = x/2;
+ 	//initialize bacteria variables here 
+ 	creatures = new Bacteria [total_creatures_amount];
+ 	init_creatures();
  	frameRate(10);
  }   
- void draw()   
- {    
+ void draw() {    
  	background(0);
- 	//move and show the bacteria   
- 	Bob.show();
- 	Bob.move();
-
+ 	//move and show the bacteria
+ 	show_then_move_creatures();
  }  
  class Bacteria    
  {     
@@ -43,9 +39,32 @@ color color_for_Bob = #432904; //put Bob's color here
  			int random_d = (int)((Math.random()*B_max_walk_dist));
  			B_Y += (B_Y <= 0) ? (random_d) : (0-random_d);
  		}
-
  	}
  	void show(){
+ 		fill(B_color);
  		ellipse(B_X, B_Y, B_ellipse_w, B_ellipse_w);
  	}
  }    
+ void init_creatures(){
+ 	//inits the creatures
+ 	for(int n=0;n<(creatures.length);n++){
+ 		color rand_Color = color(random_byte_thing(),random_byte_thing(),random_byte_thing());
+ 		creatures[n] = new Bacteria((width>>1),(height>>1), rand_Color );//(x>>1) = x/2;
+ 	}
+ }
+ void show_then_move_creatures(){
+ 	for(int n=0;n<(creatures.length);n++){
+ 		creatures[n].show();
+ 		creatures[n].move();
+ 	}
+ }
+ int random_byte_thing(){
+ 	//returns a random byte (0-255)
+ 	return (int)((Math.random()*256));
+ }
+ void mousePressed()
+{//if mouse gets pressed
+	//re-initialize the creatures
+	init_creatures();
+	redraw();
+}
