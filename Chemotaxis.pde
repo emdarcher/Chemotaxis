@@ -1,5 +1,5 @@
 Bacteria[] creatures;
-int total_creatures_amount = 8;
+int total_creatures_amount = 8; //put the total amount of creatures you want here
 
  //declare bacteria variables here   
  void setup() {     
@@ -11,15 +11,12 @@ int total_creatures_amount = 8;
  }   
  void draw() {    
  	background(0);
- 	//move and show the bacteria
- 	show_then_move_creatures();
+ 	show_then_move_creatures();//move and show the bacteria
  }  
  class Bacteria    
  {     
- 	int B_X, B_Y;
+ 	int B_X, B_Y, B_max_walk_dist, B_ellipse_w;
  	color B_color;
- 	int B_max_walk_dist;
- 	int B_ellipse_w;
 
  	Bacteria(int cB_X, int cB_Y, color cB_color){
  		B_X = cB_X;	B_Y = cB_Y; B_color = cB_color;
@@ -45,8 +42,7 @@ int total_creatures_amount = 8;
  		ellipse(B_X, B_Y, B_ellipse_w, B_ellipse_w);
  	}
  }    
- void init_creatures(){
- 	//inits the creatures
+ void init_creatures(){	//inits the creatures
  	for(int n=0;n<(creatures.length);n++){
  		color rand_Color = color(random_byte_thing(),random_byte_thing(),random_byte_thing());
  		creatures[n] = new Bacteria((width>>1),(height>>1), rand_Color );//(x>>1) = x/2;
@@ -54,17 +50,14 @@ int total_creatures_amount = 8;
  }
  void show_then_move_creatures(){
  	for(int n=0;n<(creatures.length);n++){
- 		creatures[n].show();
- 		creatures[n].move();
+ 		creatures[n].show();//show
+ 		creatures[n].move();//then move
  	}
  }
  int random_byte_thing(){
- 	//returns a random byte (0-255)
- 	return (int)((Math.random()*256));
+ 	return (int)((Math.random()*256));//returns a random byte (0-255)
  }
- void mousePressed()
-{//if mouse gets pressed
-	//re-initialize the creatures
-	init_creatures();
+ void mousePressed(){	//if mouse gets pressed
+	init_creatures();	//re-initialize the creatures
 	redraw();
 }
